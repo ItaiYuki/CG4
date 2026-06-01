@@ -7,7 +7,7 @@ using namespace MathUtility;
 
 class Effect {
 public:
-	void Initialize(Model* model, float rotate, float size, Vector3 position, Vector3 color);
+	void Initialize(Model* model, Vector3 position, Vector3 color);
 
 	void Update();
 

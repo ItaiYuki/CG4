@@ -1,36 +1,30 @@
 #include "GameScene.h"
-#include <cstdlib>
-#include <ctime>
-#include <random>
 
 using namespace KamataEngine;
 using namespace MathUtility;
 
-std::random_device seedGenerator;
-std::mt19937 randomEngine(seedGenerator());
-std::uniform_real_distribution<float> distribution(-1.0f, 1.0f);
-
 // デストラクタ
 GameScene::~GameScene() {
-	// エフェクト
+
 	for (Effect* effect : effects_) {
 		delete effect;
 	}
 	effects_.clear();
+
+	delete modelEffect_;
+	modelEffect_ = nullptr;
 }
 
 // 初期化
 void GameScene::Initialize() {
-	// 乱数の初期化
-	srand((unsigned)time(NULL));
 
-	// 3Dモデルデータ生成
+	// 菱形モデル
 	modelEffect_ = Model::CreateFromOBJ("plane");
 
-	// カメラの初期化
+	// カメラ初期化
 	camera_.Initialize();
 
-	// 最初のエフェクト生成
+	// Effectを1個生成
 	Vector3 position = {0.0f, 0.0f, 0.0f};
 	EffectBorn(position);
 }
@@ -38,62 +32,31 @@ void GameScene::Initialize() {
 // 更新
 void GameScene::Update() {
 
-	static int effectTimer = 0;
-	effectTimer++;
-
-	// 1秒ごとに生成
-	if (effectTimer >= 60) {
-		effectTimer = 0;
-
-		Vector3 position = {0.0f, 0.0f, 0.0f};
-	}
-
-	// エフェクト更新
 	for (Effect* effect : effects_) {
 		effect->Update();
 	}
-
-	// 終了したエフェクトを削除
-	effects_.remove_if([](Effect* effect) {
-		if (effect->IsFinished()) {
-			delete effect;
-			return true;
-		}
-		return false;
-	});
 }
 
 // 描画
 void GameScene::Draw() {
-	// DirectXCommon インスタンスの取得
-	//	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
-	// 3Dモデル描画前処理
-	//	Model::PreDraw(dxCommon->GetCommandList());
-	Model::PreDraw(); // 仕様変更
+	Model::PreDraw();
 
-	// エフェクト描画
 	for (Effect* effect : effects_) {
 		effect->Draw(camera_);
 	}
 
-	// 3Dモデル描画後処理
 	Model::PostDraw();
 }
 
-// エフェクト発生
+// エフェクト生成
 void GameScene::EffectBorn(Vector3 position) {
+
 	Vector3 color = {1.0f, 1.0f, 1.0f};
 
 	Effect* effect = new Effect();
 
-	float rotate = distribution(randomEngine) * 3.14f; // 向きを固定
-	// Y方向の大きさをランダム
-	std::uniform_real_distribution<float> sizeDist(2.0f, 6.0f);
-
-	float size = sizeDist(randomEngine);
-
-	effect->Initialize(modelEffect_, rotate, size, position, color);
+	effect->Initialize(modelEffect_, position, color);
 
 	effects_.push_back(effect);
 }
