@@ -83,12 +83,17 @@ void GameScene::Draw() {
 
 // エフェクト発生
 void GameScene::EffectBorn(Vector3 position) {
-	Vector3 color = {abs(distribution(randomEngine)), abs(distribution(randomEngine)), abs(distribution(randomEngine))};
-	for (int32_t i = 0; i < 15; i++) {
-		Effect* effect = new Effect();
-		float rotate = distribution(randomEngine) * 3.14f;
-		float size = 1.0f + abs(distribution(randomEngine)) * 2.0f;
-		effect->Initialize(modelEffect_, rotate, size, position, color);
-		effects_.push_back(effect);
-	}
+	Vector3 color = {1.0f, 1.0f, 1.0f};
+
+	Effect* effect = new Effect();
+
+	float rotate = distribution(randomEngine) * 3.14f; // 向きを固定
+	// Y方向の大きさをランダム
+	std::uniform_real_distribution<float> sizeDist(2.0f, 6.0f);
+
+	float size = sizeDist(randomEngine);
+
+	effect->Initialize(modelEffect_, rotate, size, position, color);
+
+	effects_.push_back(effect);
 }
