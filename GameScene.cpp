@@ -1,7 +1,7 @@
 #include "GameScene.h"
-#include <random>
-#include <ctime>
 #include <cstdlib>
+#include <ctime>
+#include <random>
 
 using namespace KamataEngine;
 using namespace MathUtility;
@@ -29,6 +29,10 @@ void GameScene::Initialize() {
 
 	// カメラの初期化
 	camera_.Initialize();
+
+	// 最初のエフェクト生成
+	Vector3 position = {0.0f, 0.0f, 0.0f};
+	EffectBorn(position);
 }
 
 // 更新
@@ -42,7 +46,6 @@ void GameScene::Update() {
 		effectTimer = 0;
 
 		Vector3 position = {0.0f, 0.0f, 0.0f};
-		EffectBorn(position);
 	}
 
 	// エフェクト更新

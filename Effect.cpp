@@ -35,16 +35,12 @@ void Effect::Update() {
 	// 存続時間の上限に達したら
 	if (counter_ >= kDuration) {
 		counter_ = kDuration;
-		// 終了扱いにする
-		isFinished_ = true;
+		
 	}
 
 	worldTransform_.rotation_.y = 3.14f;
 
-	// 色変更オブジェクトに色の数値を設定する
-	color_.w = std::clamp(1.0f - counter_ / kDuration, 0.0f, 1.0f);
-	objectColor_.SetColor(color_);
-
+	
 	worldTransform_.UpdateMatrix();
 }
 
