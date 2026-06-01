@@ -45,10 +45,6 @@ void Effect::Update() {
 	color_.w = std::clamp(1.0f - counter_ / kDuration, 0.0f, 1.0f);
 	objectColor_.SetColor(color_);
 
-	worldTransform_.rotation_.z += 0.1f;
-	worldTransform_.scale_.x *= 1.01f;
-	worldTransform_.scale_.y *= 1.02f;
-
 	worldTransform_.UpdateMatrix();
 }
 
