@@ -33,20 +33,24 @@ void GameScene::Initialize() {
 
 // 更新
 void GameScene::Update() {
-	// エフェクト発生
-	if (rand() % 5 == 0) {
-		Vector3 position = {distribution(randomEngine), distribution(randomEngine), 0};
-		position *= 10;
+
+	static int effectTimer = 0;
+	effectTimer++;
+
+	// 1秒ごとに生成
+	if (effectTimer >= 60) {
+		effectTimer = 0;
+
+		Vector3 position = {0.0f, 0.0f, 0.0f};
 		EffectBorn(position);
 	}
 
 	// エフェクト更新
-	// effect_->Update();
 	for (Effect* effect : effects_) {
 		effect->Update();
 	}
 
-	// デスフラグの立ったエフェクトを削除
+	// 終了したエフェクトを削除
 	effects_.remove_if([](Effect* effect) {
 		if (effect->IsFinished()) {
 			delete effect;

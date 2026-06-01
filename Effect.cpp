@@ -16,7 +16,7 @@ void Effect::Initialize(Model* model, float rotate, float size, Vector3 position
 	// worldTransform_.translation_ = position;
 	worldTransform_.rotation_.z = rotate;
 	// worldTransform_.scale_ = { 0.2f, size, 1.0f };
-	worldTransform_.scale_ = {0.08f, size / 2.0f, 1.0f};
+	worldTransform_.scale_ = {0.32f, size / 0.5f, 1.0f};
 	worldTransform_.translation_ = position;
 
 	objectColor_.Initialize();
