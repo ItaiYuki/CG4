@@ -2,7 +2,6 @@
 using namespace KamataEngine;
 
 #include <algorithm>
-//
 // void Effect::Initialize(Model* model, Vector3 position, float rotate, float size)
 void Effect::Initialize(Model* model, float rotate, float size, Vector3 position, Vector3 color) {
 
