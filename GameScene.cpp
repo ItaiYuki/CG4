@@ -3,46 +3,87 @@
 using namespace KamataEngine;
 
 // デストラクタ
-GameScene::~GameScene() {
-	// 3Dモデルデータの解放
-	delete modelSquare_;
+GameScene::~GameScene()
+{
+	delete stage_;
+	delete player_;
+	delete graphBar_;
+	delete drawNumber_;
 
-	Model2::StaticFinalize();
+	delete modelPlayer_;
 }
 
 // 初期化
-void GameScene::Initialize() {
-	Model2::StaticInitialize();
-	// カメラの初期化
-	camera_.Initialize();
+void GameScene::Initialize()
+{
 	// ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("uvChecker.png");
-	// textureHandle_ = TextureManager::Load("box.png");
-	//  ワールド変換の初期化
-	worldTransform_.Initialize();
-	worldTransform_.scale_ = {2, 2, 2};
-	// 3Dモデルデータの生成
-	modelSquare_ = Model2::CreateRing(20);
-	// modelSquare_ = Model2::CreateSquare(1);
+	textureHandleStage_ = TextureManager::Load("stage.png");
+	textureHandleGraph_ = TextureManager::Load("white1x1.png");
+	textureHandleNumber_ = TextureManager::Load("number.png");
+	// 3Dモデルの生成
+	modelPlayer_ = Model::CreateFromOBJ("player");
+
+	// カメラの初期化
+	camera_.translation_ = { 0,0,-20 };
+	camera_.Initialize();
+	
+	stage_ = new Stage();
+	stage_->Initialize(textureHandleStage_);
+	player_ = new Player();
+	player_->Initialize(modelPlayer_);
+	graphBar_ = new GraphBar();
+	graphBar_->Initialize(textureHandleGraph_);
+	drawNumber_ = new DrawNumber();
+	drawNumber_->Initialize(textureHandleNumber_);
 }
 
 // 更新
-void GameScene::Update() {
-	// 3Dモデルを更新
-	worldTransform_.UpdateMatrix();
+void GameScene::Update()
+{
+	hp_--;
+	if (hp_ < 0) {
+		hp_ = 200u;
+	}
+	gameScore_++;
+
+	stage_->Update();
+	player_->Update();
+	graphBar_->Update(hp_);
+	drawNumber_->Update(gameScore_);
 }
 
 // 描画
-void GameScene::Draw() {
-	// DirectXCommon インスタンスの取得
+void GameScene::Draw()
+{
+	// DirectXCommonインスタンスの取得
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
-	// 3Dモデル描画前処理
-	Model2::PreDraw(dxCommon->GetCommandList());
+	// スプライト描画前処理
+	Sprite::PreDraw(dxCommon->GetCommandList());
 
-	// 3Dモデルを描画
-	modelSquare_->Draw(worldTransform_, camera_, textureHandle_);
+	stage_->Draw();
+
+	// スプライト描画後処理
+	Sprite::PostDraw();
+
+	// 深度バッファクリア
+	dxCommon->ClearDepthBuffer();
+	// 3Dモデル描画前処理
+	Model::PreDraw();
+
+	//ここに3Dモデルインスタンスの描画処理を記述する
+	player_->Draw(camera_);
 
 	// 3Dモデル描画後処理
-	Model2::PostDraw();
+	Model::PostDraw();
+
+	// スプライト描画前処理
+	Sprite::PreDraw(dxCommon->GetCommandList());
+
+	graphBar_->Draw();
+	drawNumber_->Draw();
+
+	// スプライト描画後処理
+	Sprite::PostDraw();
+
 }

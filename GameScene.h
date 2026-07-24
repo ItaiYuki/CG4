@@ -1,14 +1,14 @@
 #pragma once
 
+#include "DrawNumber.h"
+#include "GraphBar.h"
 #include "KamataEngine.h"
-#include "Model2.h"
+#include "Player.h"
+#include "Stage.h"
 
-// ゲームシーン
 class GameScene {
 public:
-	/// <summary>
-	/// デストラクタ
-	/// </summary>
+	// デストラクタ
 	~GameScene();
 
 	// 初期化
@@ -21,12 +21,24 @@ public:
 	void Draw();
 
 private:
+	// テクスチャハンドル
+	uint32_t textureHandleStage_ = 0;
+	uint32_t textureHandleGraph_ = 0;
+	uint32_t textureHandleNumber_ = 0;
+
+	// 3Dモデル
+	KamataEngine::Model* modelPlayer_ = nullptr;
+
 	// カメラ
 	KamataEngine::Camera camera_;
-	// テクスチャハンドル
-	uint32_t textureHandle_ = 0;
-	// 四角形
-	KamataEngine::Model2* modelSquare_ = nullptr;
-	// ワールド変換データ
-	KamataEngine::WorldTransform worldTransform_;
+
+	// オブジェクト
+	Stage* stage_ = nullptr;
+	Player* player_ = nullptr;
+	GraphBar* graphBar_ = nullptr;
+	DrawNumber* drawNumber_ = nullptr;
+
+	// HP・スコア
+	uint32_t hp_ = 200;
+	uint32_t gameScore_ = 0;
 };
