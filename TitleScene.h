@@ -1,17 +1,31 @@
 #pragma once
-
 #include "KamataEngine.h"
 
-class TitleScene {
+
+	
+
+
+class TitleScene
+{
 public:
+	// デストラクタ
 	~TitleScene();
 
+	// 初期化
 	void Initialize();
+
+	// 更新
 	void Update();
+
+	// 描画
 	void Draw();
 
+	bool IsFinished() const;
+
 private:
-	// テクスチャ
+	bool isFinished_ = false;
+
+	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 	uint32_t textureHandleFont_ = 0;
 	uint32_t textureHandleHit_ = 0;
@@ -21,9 +35,5 @@ private:
 	KamataEngine::Sprite* spriteFont_ = nullptr;
 	KamataEngine::Sprite* spriteHit_ = nullptr;
 
-	// 点滅・アニメーション用
 	int timer = 0;
-
-	// タイトル文字の落下速度（使う場合）
-	float fontSpeed_ = 2.0f;
 };

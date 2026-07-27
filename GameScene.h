@@ -1,6 +1,6 @@
 #pragma once
 
-//#include "DrawNumber.h"
+#include "DrawNumber.h"
 #include "GraphBar.h"
 #include "KamataEngine.h"
 #include "Player.h"
@@ -34,7 +34,7 @@ private:
 	Stage* stage_ = nullptr;
 	Player* player_ = nullptr;
 	GraphBar* graphBar_ = nullptr;
-	/*DrawNumber* drawNumber_ = nullptr;*/
+	DrawNumber* drawNumber_ = nullptr;
 	// HP
 	int hp_ = 200;
 	// score

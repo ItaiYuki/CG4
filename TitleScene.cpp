@@ -10,6 +10,8 @@ TitleScene::~TitleScene() {
 	delete spriteHit_;
 }
 
+bool TitleScene::IsFinished() const { return isFinished_; }
+
 // 初期化
 void TitleScene::Initialize() {
 	// ファイル名を指定してテクスチャを読み込む
@@ -39,6 +41,10 @@ void TitleScene::Update() {
 		position.y += 2;
 	}
 	spriteFont_->SetPosition(position);
+
+	if (Input::GetInstance()->TriggerKey(DIK_RETURN)) {
+		isFinished_ = true;
+	}
 }
 
 // 描画
