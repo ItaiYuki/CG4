@@ -1,8 +1,8 @@
 #pragma once
 
-//#include "DrawNumber.h"
-//#include "GraphBar.h"
-//#include "KamataEngine.h"
+// #include "DrawNumber.h"
+#include "GraphBar.h"
+#include "KamataEngine.h"
 #include "Player.h"
 #include "Stage.h"
 
@@ -35,8 +35,8 @@ private:
 	// オブジェクト
 	Stage* stage_ = nullptr;
 	Player* player_ = nullptr;
-	/* GraphBar* graphBar_ = nullptr;
-	DrawNumber* drawNumber_ = nullptr;*/
+	GraphBar* graphBar_ = nullptr;
+	/*DrawNumber* drawNumber_ = nullptr;*/
 
 	// HP・スコア
 	uint32_t hp_ = 200;
