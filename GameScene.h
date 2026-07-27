@@ -3,7 +3,7 @@
 //#include "DrawNumber.h"
 //#include "GraphBar.h"
 //#include "KamataEngine.h"
-//#include "Player.h"
+#include "Player.h"
 #include "Stage.h"
 
 class GameScene {
@@ -34,8 +34,8 @@ private:
 
 	// オブジェクト
 	Stage* stage_ = nullptr;
-	/*Player* player_ = nullptr;
-	GraphBar* graphBar_ = nullptr;
+	Player* player_ = nullptr;
+	/* GraphBar* graphBar_ = nullptr;
 	DrawNumber* drawNumber_ = nullptr;*/
 
 	// HP・スコア

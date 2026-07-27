@@ -6,8 +6,8 @@ using namespace KamataEngine;
 GameScene::~GameScene()
 {
 	delete stage_;
-	/*delete player_;
-	delete graphBar_;
+	delete player_;
+	/*delete graphBar_;
 	delete drawNumber_;*/
 
 	delete modelPlayer_;
@@ -29,9 +29,9 @@ void GameScene::Initialize()
 	
 	stage_ = new Stage();
 	stage_->Initialize(textureHandleStage_);
-	/*player_ = new Player();
+	player_ = new Player();
 	player_->Initialize(modelPlayer_);
-	graphBar_ = new GraphBar();
+	/*graphBar_ = new GraphBar();
 	graphBar_->Initialize(textureHandleGraph_);
 	drawNumber_ = new DrawNumber();
 	drawNumber_->Initialize(textureHandleNumber_);*/
@@ -47,8 +47,8 @@ void GameScene::Update()
 	gameScore_++;
 
 	stage_->Update();
-	/*player_->Update();
-	graphBar_->Update(hp_);
+	player_->Update();
+	/* graphBar_->Update(hp_);
 	drawNumber_->Update(gameScore_);*/
 }
 
@@ -72,7 +72,7 @@ void GameScene::Draw()
 	Model::PreDraw();
 
 	//ここに3Dモデルインスタンスの描画処理を記述する
-	/*player_->Draw(camera_);*/
+	player_->Draw(camera_);
 
 	// 3Dモデル描画後処理
 	Model::PostDraw();
