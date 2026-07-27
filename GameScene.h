@@ -1,11 +1,12 @@
 #pragma once
 
-// #include "DrawNumber.h"
+#include "DrawNumber.h"
 #include "GraphBar.h"
 #include "KamataEngine.h"
 #include "Player.h"
 #include "Stage.h"
 
+// ゲームシーン
 class GameScene {
 public:
 	// デストラクタ
@@ -25,20 +26,17 @@ private:
 	uint32_t textureHandleStage_ = 0;
 	uint32_t textureHandleGraph_ = 0;
 	uint32_t textureHandleNumber_ = 0;
-
 	// 3Dモデル
 	KamataEngine::Model* modelPlayer_ = nullptr;
-
 	// カメラ
 	KamataEngine::Camera camera_;
-
-	// オブジェクト
+	// クラス
 	Stage* stage_ = nullptr;
 	Player* player_ = nullptr;
 	GraphBar* graphBar_ = nullptr;
-	/*DrawNumber* drawNumber_ = nullptr;*/
-
-	// HP・スコア
-	uint32_t hp_ = 200;
-	uint32_t gameScore_ = 0;
+	DrawNumber* drawNumber_ = nullptr;
+	// HP
+	int hp_ = 200;
+	// score
+	int gameScore_ = 0;
 };
