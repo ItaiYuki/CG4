@@ -29,13 +29,10 @@ public:
 private:
 	// パーティクル3Dモデルデータ
 	KamataEngine::Model* modelParticle_ = nullptr;
-
-	// カメラ
 	KamataEngine::Camera camera_;
 
-	// パーティクル
+	// パーティクル1個だけ
 	Particle* particle_ = nullptr;
-	std::list<Particle*> particles_;
 
 	/// <summary>
 	/// パーティクル発生
